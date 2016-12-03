@@ -3,6 +3,8 @@ A tile-based adventure game... or at least the start for one.
 
 ## None of the code has been tested, might not even run.
 
+### I'm documenting the code for myself, but feel free to use it in whatever projects you want, any utility class will be contained in a single JavaScript file.
+
 
 ## js/ResourceLoader.js
 
