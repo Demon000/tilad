@@ -52,9 +52,9 @@ Adds a new resource type with name `name` and constructor `funciton` to the type
 Calls `name.load(cb)`.
 
 
-#### ResourceLoader.loadAll(method)
+#### ResourceLoader.loadAll(method, cb)
 
-Loads all of the resources.
+Loads all of the resources and calls `cb` at the very end.
 
 `method` can be `sync` or `async`.
 
