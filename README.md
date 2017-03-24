@@ -45,19 +45,23 @@ Calls `name.get(options)`.
 Adds a new resource type with name `name` and constructor `funciton` to the types array.
 
 
-### todo
-
 #### ResourceLoader.load(name, cb)
 
 Calls `name.load(cb)`.
 
 
-#### ResourceLoader.loadAll(method, cb)
+#### ResourceLoader.loadAllSync(cb)
+
+Helper for ResourceLoader.loadAll(), loads all the resources in order.
+
+
+#### ResourceLoader.loadAllAsync(cb)
+
+Helper for ResourceLoader.loadAll(), loads all the resources at the same time.
+
+
+#### ResourceLoader.loadAll(cb, sync)
 
 Loads all of the resources and calls `cb` at the very end.
 
-`method` can be `sync` or `async`.
-
-`sync` could be implemented by chaining the callback of a resource with the load of the next one.
-
-`async` could be implemented by checking if all resources all loaded after each callback of a resource.
+Pass `sync` as true if you want a sync load.
