@@ -85,5 +85,7 @@
             }
         };
     }
+
+    window.Sprite = Sprite;
     window.ResourceLoader = ResourceLoader;
 })();
