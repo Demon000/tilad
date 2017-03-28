@@ -19,16 +19,13 @@
         };
     }
 
-    function ResourceLoader(resources) {
+    function ResourceLoader(op) {
         var rl = this;
         rl.types = {
             'sprite': Sprite,
         };
 
         rl.resources = {};
-        if(resources) {
-            rl.resources = resources;
-        }
 
         rl.setType = function(name, fn) {
             rl.types[name] = fn; 
@@ -84,6 +81,12 @@
                 rl.loadAllAsync(cb);
             }
         };
+
+        if(op.resources) {
+            op.resources.forEach(function(r) {
+                rl.add(r.name, r.type, r);
+            });
+        }
     }
 
     window.Sprite = Sprite;
