@@ -25,9 +25,16 @@ Gets the content of the sprite and calls the callback with the result.
 `op` could include options for how to return the result.
 
 
-### ResourceLoader
+### ResourceLoader(options)
 
 Constructor for a ResourceLoader.
+
+`options` is an object.
+
+`options.resources` can be an array with objects.
+
+Each object in `options.resources` must contain a `type` property meaning the type of resource and a `name` property containing the name of the resource.
+Objects can also contain other properties that will be passed to the resource constructor.
 
 
 #### ResourceLoader.add(name, type, options)
