@@ -19,13 +19,17 @@
         };
     }
 
-    function ResourceLoader() {
+    function ResourceLoader(resources) {
         var rl = this;
         rl.types = {
             'sprite': Sprite,
         };
+
         rl.resources = {};
-        
+        if(resources) {
+            rl.resources = resources;
+        }
+
         rl.setType = function(name, fn) {
             rl.types[name] = fn; 
         };
