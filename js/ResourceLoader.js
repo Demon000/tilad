@@ -88,7 +88,9 @@
             }
         };
 
-        rl.addMultiple(op.resources);
+        if (op.resources) {
+            rl.addMultiple(op.resources);
+        }
     }
 
     window.Sprite = Sprite;
