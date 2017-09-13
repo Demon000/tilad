@@ -19,4 +19,5 @@
         };
     }
     window.Sprite = Sprite;
+    ResourceLoader.addGlobalType('sprite', Sprite);
 })();
