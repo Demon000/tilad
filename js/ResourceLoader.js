@@ -77,11 +77,11 @@
 
         if (options) {
             if (options.types) {
-                rl.addTypeMultiple(op.types);
+                rl.addTypeMultiple(options.types);
             }
 
             if (options.resources) {
-                rl.addMultiple(op.resources);
+                rl.addMultiple(options.resources);
             }
         }
     }
