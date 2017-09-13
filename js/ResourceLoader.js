@@ -91,6 +91,10 @@
             }
         };
 
+        if (op.types) {
+            rl.addTypeMultiple(op.types);
+        }
+
         if (op.resources) {
             rl.addMultiple(op.resources);
         }
