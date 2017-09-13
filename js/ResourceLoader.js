@@ -1,7 +1,7 @@
 (function(){
     var globalTypes = {};
 
-    function ResourceLoader(op) {
+    function ResourceLoader(options) {
         var rl = this;
         rl.types = {};
         rl.resources = {};
@@ -75,12 +75,14 @@
 
         rl.addTypeMultiple(globalTypes);
 
-        if (op.types) {
-            rl.addTypeMultiple(op.types);
-        }
+        if (options) {
+            if (options.types) {
+                rl.addTypeMultiple(op.types);
+            }
 
-        if (op.resources) {
-            rl.addMultiple(op.resources);
+            if (options.resources) {
+                rl.addMultiple(op.resources);
+            }
         }
     }
 
