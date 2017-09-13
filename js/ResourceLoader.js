@@ -5,7 +5,7 @@
         rl.resources = {};
 
         rl.addType = function(name, fn) {
-            rl.types[name] = fn; 
+            rl.types[name] = fn;
         };
 
         rl.addTypeMultiple = function(types) {
