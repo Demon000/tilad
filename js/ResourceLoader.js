@@ -1,4 +1,6 @@
 (function(){
+    var globalTypes = {};
+
     function ResourceLoader(op) {
         var rl = this;
         rl.types = {};
@@ -71,6 +73,8 @@
             }
         };
 
+        rl.addTypeMultiple(globalTypes);
+
         if (op.types) {
             rl.addTypeMultiple(op.types);
         }
@@ -79,5 +83,15 @@
             rl.addMultiple(op.resources);
         }
     }
+
+    ResourceLoader.prototype.addGlobalType = function(name, fn) {
+        globalTypes[name] = fn;
+    };
+    ResourceLoader.prototype.addGlobalTypeMultiple = function(types) {
+        for (var name in types) {
+            ResourceLoader.addGlobalType(name, types[name]);
+        }
+    };
+
     window.ResourceLoader = ResourceLoader;
 })();
