@@ -21,10 +21,7 @@
 
     function ResourceLoader(op) {
         var rl = this;
-        rl.types = {
-            'sprite': Sprite,
-        };
-
+        rl.types = {};
         rl.resources = {};
 
         rl.addType = function(name, fn) {
@@ -97,6 +94,8 @@
         if (op.resources) {
             rl.addMultiple(op.resources);
         }
+
+        rl.addType('sprite', Sprite);
     }
 
     window.Sprite = Sprite;
