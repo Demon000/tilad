@@ -1,24 +1,4 @@
 (function(){
-    function Sprite(op) {
-        var s = this;
-        
-        s.loaded = false;
-        
-        s.content = new Image();
-        
-        s.load = function(cb) {
-            s.content.onload = function() {
-                s.loaded = true;
-                cb(s);
-            };
-            s.content.src = op.src;
-        };
-
-        s.get = function(op) {
-            return s.content;
-        };
-    }
-
     function ResourceLoader(op) {
         var rl = this;
         rl.types = {};
@@ -98,10 +78,6 @@
         if (op.resources) {
             rl.addMultiple(op.resources);
         }
-
-        rl.addType('sprite', Sprite);
     }
-
-    window.Sprite = Sprite;
     window.ResourceLoader = ResourceLoader;
 })();
