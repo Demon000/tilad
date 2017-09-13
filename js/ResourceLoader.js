@@ -35,6 +35,12 @@
             rl.resources[name] = new rl.types[type](op);
         };
 
+        rl.addMultiple = function(resources) {
+            resources.forEach(function(r) {
+                rl.add(r.name, r.type, r);
+            });
+        };
+
         rl.get = function(name, op) {
             return rl.resources[name].get(op);
         };
@@ -82,11 +88,7 @@
             }
         };
 
-        if(op.resources) {
-            op.resources.forEach(function(r) {
-                rl.add(r.name, r.type, r);
-            });
-        }
+        rl.addMultiple(op.resources);
     }
 
     window.Sprite = Sprite;
