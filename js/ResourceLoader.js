@@ -31,6 +31,12 @@
             rl.types[name] = fn; 
         };
 
+        rl.addTypeMultiple = function(types) {
+            for (var name in types) {
+                rl.addType(name, types[name]);
+            }
+        };
+
         rl.add = function(name, type, op) {
             rl.resources[name] = new rl.types[type](op);
         };
