@@ -19,5 +19,5 @@
         };
     }
     window.Sprite = Sprite;
-    ResourceLoader.addGlobalType('sprite', Sprite);
+    ResourceLoader.prototype.addGlobalType('sprite', Sprite);
 })();

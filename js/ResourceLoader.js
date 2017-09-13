@@ -91,7 +91,7 @@
     };
     ResourceLoader.prototype.addGlobalTypeMultiple = function(types) {
         for (var name in types) {
-            ResourceLoader.addGlobalType(name, types[name]);
+            ResourceLoader.prototype.addGlobalType(name, types[name]);
         }
     };
 
