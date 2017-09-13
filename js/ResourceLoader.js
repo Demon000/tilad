@@ -27,7 +27,7 @@
 
         rl.resources = {};
 
-        rl.setType = function(name, fn) {
+        rl.addType = function(name, fn) {
             rl.types[name] = fn; 
         };
 
