@@ -1,9 +1,7 @@
 # tilad
-A tile-based adventure game... or at least the start for one.
+A tile-based adventure game ... or at least the start for one.
 
-## None of the code has been tested, might not even run.
-
-### I'm documenting the code for myself, but feel free to use it in whatever projects you want, any utility class will be contained in a single JavaScript file.
+## Code has not been tested, might not even run.
 
 
 ## js/ResourceLoader.js
@@ -33,7 +31,7 @@ Constructor for a ResourceLoader.
 
 `options.resources` can be an array with objects.
 
-Each object in `options.resources` must contain a `type` property meaning the type of resource and a `name` property containing the name of the resource.
+Each object in `options.resources` must contain a `type` property which is the type of resource and a `name` property containing the name of the resource.
 Objects can also contain other properties that will be passed to the resource constructor.
 
 
@@ -49,7 +47,7 @@ Calls `name.get(options)`.
 
 #### ResourceLoader.setType(name, function)
 
-Adds a new resource type with name `name` and constructor `funciton` to the types array.
+Adds a new resource type with name `name` and constructor `function` to the types array.
 
 
 #### ResourceLoader.load(name, cb)
