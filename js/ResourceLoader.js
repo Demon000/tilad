@@ -36,17 +36,17 @@
 
         rl.loadAllSync = function(cb) {
             var i = 0;
-            var s = function() {
+            function loadNext() {
                 rl.resources[i].load(function() {
                     if(i == rl.resources.length) {
                         cb(rl.resources);
                     } else {
                         i++;
-                        s();
+                        loadNext();
                     }
                 });
             };
-            s();
+            loadNext();
         };
 
         rl.loadAllAsync = function(cb) {
