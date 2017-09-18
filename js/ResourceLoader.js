@@ -51,13 +51,11 @@
         };
 
         rl.loadAllAsync = function(cb) {
-            rl.resources.forEach(function(r) {
-                r.load(function() {
-                    var all = true;
-                    rl.resources.forEach(function(r) {
-                        if(!r.loaded) {
-                            all = false;
-                        }
+            var keys = Object.keys(rl.resources);
+            keys.forEach(function(k) {
+                rl.resources[k].load(function() {
+                    var all = keys.every(function(k) {
+                        return rl.resources[k].loaded;
                     });
                     if(all) {
                         cb(rl.resources);
