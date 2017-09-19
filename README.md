@@ -8,51 +8,106 @@ A tile-based adventure game ... or at least the start for one.
 
 ### Sprite
 
-Constructor for a resource of type `sprite`.
+Constructs a `Sprite`.
 
 
 #### Sprite.load(cb)
 
-Loads the content of the sprite and calls the callback function when done.
+Loads the content of the sprite and calls `cb` when done.
 
 
-#### Sprite.get(op, cb)
+#### Sprite.get(op)
 
-Gets the content of the sprite and calls the callback with the result.
+Returns an Image object containing the sprite.
 
-`op` could include options for how to return the result.
+`op` can include options for how to return the result.
+
+
+### Sprite.loaded
+
+Bool that describes if the Sprite is loaded.
+
+
+### Sprite.content
+
+Image object containing the sprite.
+
+
+
+## js/ResourceLoader.js
+
+
+### ResourceLoader.prototype.addGlobalType(name, fn)
+
+Adds a global resource type that will be available in any ResourceLoader constructed afterwards.
+
+`name` is the name of the resource type.
+
+`fn` is the constructor for that type.
+
+
+### ResourceLoader.prototype.addGlobalTypeMultiple(types)
+
+Adds multiple global resource types that will be available in any ResourceLoader constructed afterwards.
+
+`types` must be an object of key-value pairs, where the key is the `name` of the resource type and value is the constructor for that resource.
 
 
 ### ResourceLoader(options)
 
-Constructor for a ResourceLoader.
+Constructs a `ResourceLoader`.
 
-`options` is an object.
+`options` can be an object.
 
-`options.resources` can be an array with objects.
+`options.types` can be an object of key-value pairs, where the key is the `name` of the resource type and value is the constructor for that resource.
 
-Each object in `options.resources` must contain a `type` property which is the type of resource and a `name` property containing the name of the resource.
-Objects can also contain other properties that will be passed to the resource constructor.
+`options.resources` can be an array of objects, each object must contain a `name` property which is the name of the resource that will be used to retrieve it later and a `type` property which is the type of resource.
 
-
-#### ResourceLoader.add(name, type, options)
-
-Adds resource with name `name`, and value `new Type(options)` to resources array.
+Each object can also contain other properties that will be passed to the resource constructor.
 
 
-#### ResourceLoader.get(name, options, cb)
+#### ResourceLoader.add(name, type, op)
 
-Calls `name.get(options)`.
+Adds a new resource with name `name` and type `type`.
+
+`op` will be passed to the resource constructor.
 
 
-#### ResourceLoader.setType(name, function)
+#### ResourceLoader.addMultiple(resources)
 
-Adds a new resource type with name `name` and constructor `function` to the types array.
+Adds multiple resources.
+
+`resources` must be an array of objects, each object must contain a `type` property which is the type of resource and a `name` property which is the name of the resource that will be used to retrieve it later.
+
+Each object can also contain other properties that will be passed to the resource constructor.
+
+
+#### ResourceLoader.get(name, op)
+
+Returns the resource with name `name`.
+
+`op` can include options for how to return the result.
+
+
+#### ResourceLoader.addType(name, fn)
+
+Adds a resource type.
+
+`name` is the name of the resource type.
+
+`fn` is the constructor for that type.
+
+
+#### ResourceLoader.addTypeMultiple(types)
+
+Adds multiple resource types.
+
+`types` must be an object of key-value pairs, where the key is the `name` of the resource type and value is the constructor for that resource.
 
 
 #### ResourceLoader.load(name, cb)
 
-Calls `name.load(cb)`.
+Loads the resource with name `name` and calls `cb` afterwards.
 
 
 #### ResourceLoader.loadAllSync(cb)
@@ -67,6 +122,6 @@ Helper for ResourceLoader.loadAll(), loads all the resources at the same time.
 
 #### ResourceLoader.loadAll(cb, sync)
 
-Loads all of the resources and calls `cb` at the very end.
+Loads all of the resources and calls `cb` when all the resources are loaded.
 
-Pass `sync` as true if you want a sync load.
+`sync` can be true to load all the resources in order.
