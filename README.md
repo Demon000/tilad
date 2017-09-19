@@ -89,6 +89,11 @@ Returns the content of the resource with name `name`.
 `op` can include options for how to return the result.
 
 
+#### ResourceLoader.getReference(name)
+
+Returns the resource with name `name`.
+
+
 #### ResourceLoader.addType(name, fn)
 
 Adds a resource type.

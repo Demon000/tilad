@@ -30,6 +30,10 @@
             return rl.resources[name].get(op);
         };
 
+        rl.getReference = function(name) {
+            return rl.resources[name];
+        };
+
         rl.load = function(name, cb) {
             rl.resources[name].load(cb);
         };
