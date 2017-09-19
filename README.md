@@ -84,7 +84,7 @@ Each object can also contain other properties that will be passed to the resourc
 
 #### ResourceLoader.get(name, op)
 
-Returns the resource with name `name`.
+Returns the content of the resource with name `name`.
 
 `op` can include options for how to return the result.
 
