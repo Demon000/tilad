@@ -42,7 +42,7 @@
             var i = 0;
             var keys = Object.keys(rl.resources);
             function loadNext() {
-                if(i == keys.length) {
+                if (i == keys.length) {
                     cb(rl.resources);
                 } else {
                     rl.resources[keys[i]].load(function() {
@@ -61,7 +61,7 @@
                     var all = keys.every(function(k) {
                         return rl.resources[k].loaded;
                     });
-                    if(all) {
+                    if (all) {
                         cb(rl.resources);
                     }
                 });
@@ -69,7 +69,7 @@
         };
 
         rl.loadAll = function(cb, sync) {
-            if(sync) {
+            if (sync) {
                 rl.loadAllSync(cb);
             } else {
                 rl.loadAllAsync(cb);
