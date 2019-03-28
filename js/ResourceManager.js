@@ -52,9 +52,9 @@ class ResourceManager {
      *  { name, type, ...options }.
      */
     addResources(resources) {
-        const self = this;
-        resources.forEach(function(r) {
-            self.addResource(r.name, r.type, r);
+        resources.forEach(function(resource) {
+            const { name, type, ...options } = resource;
+            this.addResource(name, type, options);
         });
     }
 
@@ -78,9 +78,8 @@ class ResourceManager {
     areResourcesLoaded() {
         const names = Object.keys(this.resources);
 
-        const self = this;
-        return names.every(function(name) {
-            return self.resources[name].loaded;
+        return names.every(name => {
+            return this.resources[name].loaded;
         });
     }
 
@@ -102,12 +101,11 @@ class ResourceManager {
     loadResources(cb) {
         const names = Object.keys(this.resources);
 
-        const self = this;
-        names.forEach(function(name) {
-            const resource = self.getResource(name);
-            resource.load(function() {
-                if (self.areResourcesLoaded()) {
-                    cb(self.resources);
+        names.forEach(name => {
+            const resource = this.getResource(name);
+            resource.load(() => {
+                if (this.areResourcesLoaded()) {
+                    cb(this.resources);
                 }
             });
         });

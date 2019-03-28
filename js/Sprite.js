@@ -6,10 +6,9 @@ class Sprite {
     }
 
     load(cb) {
-        const self = this;
-        this.content.onload = function() {
-            self.loaded = true;
-            cb(self);
+        this.content.onload = () => {
+            this.loaded = true;
+            cb(this);
         };
 
         this.content.src = this.options.src;
