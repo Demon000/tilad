@@ -1,4 +1,4 @@
-class ResourceLoader {
+class ResourceManager {
     constructor(options = {}) {
         this.types = {};
         this.resources = {};

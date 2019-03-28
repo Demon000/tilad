@@ -1,4 +1,4 @@
-const resourceLoader = new ResourceLoader({
+const resourceManager = new ResourceManager({
     types: {
         Sprite,
     },
@@ -8,6 +8,6 @@ const resourceLoader = new ResourceLoader({
         src: 'assets/images/grass.png'
     }]
 });
-resourceLoader.loadResources(function(resources) {
+resourceManager.loadResources(function(resources) {
     document.body.appendChild(resources.grass.get());
 });
