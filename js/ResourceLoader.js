@@ -1,102 +1,115 @@
-(function(){
-    var globalTypes = {};
+class ResourceLoader {
+    constructor(options = {}) {
+        this.types = {};
+        this.resources = {};
 
-    function ResourceLoader(options) {
-        var rl = this;
-        rl.types = {};
-        rl.resources = {};
+        if (options.types) {
+            this.addTypes(options.types);
+        }
 
-        rl.addType = function(name, fn) {
-            rl.types[name] = fn;
-        };
-
-        rl.addTypeMultiple = function(types) {
-            for (var name in types) {
-                rl.addType(name, types[name]);
-            }
-        };
-
-        rl.add = function(name, type, op) {
-            rl.resources[name] = new rl.types[type](op);
-        };
-
-        rl.addMultiple = function(resources) {
-            resources.forEach(function(r) {
-                rl.add(r.name, r.type, r);
-            });
-        };
-
-        rl.get = function(name, op) {
-            return rl.resources[name].get(op);
-        };
-
-        rl.getReference = function(name) {
-            return rl.resources[name];
-        };
-
-        rl.load = function(name, cb) {
-            rl.resources[name].load(cb);
-        };
-
-        rl.loadAllSync = function(cb) {
-            var i = 0;
-            var keys = Object.keys(rl.resources);
-            function loadNext() {
-                if (i == keys.length) {
-                    cb(rl.resources);
-                } else {
-                    rl.resources[keys[i]].load(function() {
-                        i++;
-                        loadNext();
-                    });
-                }
-            }
-            loadNext();
-        };
-
-        rl.loadAllAsync = function(cb) {
-            var keys = Object.keys(rl.resources);
-            keys.forEach(function(k) {
-                rl.resources[k].load(function() {
-                    var all = keys.every(function(k) {
-                        return rl.resources[k].loaded;
-                    });
-                    if (all) {
-                        cb(rl.resources);
-                    }
-                });
-            });
-        };
-
-        rl.loadAll = function(cb, sync) {
-            if (sync) {
-                rl.loadAllSync(cb);
-            } else {
-                rl.loadAllAsync(cb);
-            }
-        };
-
-        rl.addTypeMultiple(globalTypes);
-
-        if (options) {
-            if (options.types) {
-                rl.addTypeMultiple(options.types);
-            }
-
-            if (options.resources) {
-                rl.addMultiple(options.resources);
-            }
+        if (options.resources) {
+            this.addResources(options.resources);
         }
     }
 
-    ResourceLoader.prototype.addGlobalType = function(name, fn) {
-        globalTypes[name] = fn;
-    };
-    ResourceLoader.prototype.addGlobalTypeMultiple = function(types) {
-        for (var name in types) {
-            ResourceLoader.prototype.addGlobalType(name, types[name]);
-        }
-    };
+    /**
+     * Add a resource type.
+     * 
+     * @param name The name of the resource type.
+     * @param cl The class to use when constructing such a resource.
+     */
+    addType(name, cl) {
+        this.types[name] = cl;
+    }
 
-    window.ResourceLoader = ResourceLoader;
-})();
+    /**
+     * Add multiple resource types.
+     * 
+     * @param types An object where the key is the name of the resource type
+     *  and the value is the class to use when constructing such a resource.
+     */
+    addTypes(types) {
+        for (let name in types) {
+            this.addType(name, types[name]);
+        }
+    }
+
+    /**
+     * Add a resource.
+     * 
+     * @param name The name of the resource.
+     * @param type The type of the resource, previously registered using addType(s).
+     * @param options An object to pass to the resource type constructor.
+     */
+    addResource(name, type, options) {
+        this.resources[name] = new this.types[type](options);
+    }
+
+    /**
+     * Add multiple resources.
+     * 
+     * @param resources An array where each item is an object of the form
+     *  { name, type, ...options }.
+     */
+    addResources(resources) {
+        const self = this;
+        resources.forEach(function(r) {
+            self.addResource(r.name, r.type, r);
+        });
+    }
+
+    /**
+     * Get a resource.
+     * 
+     * @param name The name the resource to retrieve.
+     * @param options Options to pass to the get method of the resource.
+     * 
+     * @return The requested resource.
+     */
+    getResource(name, options) {
+        return this.resources[name];
+    }
+
+    /**
+     * Get whether all the resources have been loaded.
+     * 
+     * @return Whether all the resources have been loaded or not.
+     */
+    areResourcesLoaded() {
+        const names = Object.keys(this.resources);
+
+        const self = this;
+        return names.every(function(name) {
+            return self.resources[name].loaded;
+        });
+    }
+
+    /**
+     * Load a resource.
+     * 
+     * @param name The name of the resource to load.
+     * @param cb A function to be called after the resource has been loaded.
+     */
+    loadResource(name, cb) {
+        this.getResource(name).load(cb);
+    }
+
+    /**
+     * Load all the resources.
+     * 
+     * @param cb A function to be called after all the resources have been loaded.
+     */
+    loadResources(cb) {
+        const names = Object.keys(this.resources);
+
+        const self = this;
+        names.forEach(function(name) {
+            const resource = self.getResource(name);
+            resource.load(function() {
+                if (self.areResourcesLoaded()) {
+                    cb(self.resources);
+                }
+            });
+        });
+    }
+}

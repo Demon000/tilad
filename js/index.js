@@ -1,11 +1,13 @@
-var resourceLoader = new ResourceLoader({
+const resourceLoader = new ResourceLoader({
+    types: {
+        Sprite,
+    },
     resources: [{
+        type: 'Sprite',
         name: 'grass',
-        type: 'sprite',
         src: 'assets/images/grass.png'
     }]
 });
-resourceLoader.loadAll(function(resources) {
-    console.log('loaded', resources);
+resourceLoader.loadResources(function(resources) {
     document.body.appendChild(resources.grass.get());
 });

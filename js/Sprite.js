@@ -1,23 +1,21 @@
-(function() {
-    function Sprite(op) {
-        var s = this;
-        
-        s.loaded = false;
-        
-        s.content = new Image();
-        
-        s.load = function(cb) {
-            s.content.onload = function() {
-                s.loaded = true;
-                cb(s);
-            };
-            s.content.src = op.src;
+class Sprite {
+    constructor(options) {
+        this.loaded = false;
+        this.content = new Image();
+        this.options = options;
+    }
+
+    load(cb) {
+        const self = this;
+        this.content.onload = function() {
+            self.loaded = true;
+            cb(self);
         };
 
-        s.get = function(op) {
-            return s.content;
-        };
+        this.content.src = this.options.src;
     }
-    window.Sprite = Sprite;
-    ResourceLoader.prototype.addGlobalType('sprite', Sprite);
-})();
+
+    get(options) {
+        return this.content;
+    }
+}
